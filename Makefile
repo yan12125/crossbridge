@@ -19,6 +19,8 @@ ifneq (,$(findstring CYGWIN,$(UNAME)))
 	$?FPCMP=$(BUILDROOT)/extra/fpcmp.exe
 	$?NOPIE=
 else
+
+ifneq (,$(findstring Darwin,$(UNAME)))
 	$?PLATFORM="darwin"
 	$?RAWPLAT=darwin
 	$?THREADS=$(shell sysctl -n hw.ncpu)
@@ -30,6 +32,20 @@ else
 	$?PLAYER=$(SRCROOT)/qa/runtimes/player/Debug/Flash Player.app
 	$?FPCMP=$(BUILDROOT)/extra/fpcmp
 	$?NOPIE=-no_pie
+else
+	$?PLATFORM="linux"
+	$?RAWPLAT=linux
+	$?THREADS=1
+	$?nativepath=$(1)
+	$?BUILD_TRIPLE=x86_64-apple-darwin10
+	$?CC=gcc
+	$?CXX=g++
+	$?NATIVE_AR=ar
+	$?PLAYER=$(SRCROOT)/qa/runtimes/player/Debug/Flash Player.app
+	$?FPCMP=$(BUILDROOT)/extra/fpcmp
+	$?NOPIE=-no_pie
+endif
+
 endif
 
 export CC:=$(CC)
@@ -38,6 +54,7 @@ $?DBGOPTS=
 $?BUILDROOT=$(PWD)/build
 $?WIN_BUILD=$(BUILDROOT)/win
 $?MAC_BUILD=$(BUILDROOT)/mac
+$?LINUX_BUILD=$(BUILDROOT)/linux
 $?CYGWINMAC=$(SRCROOT)/cygwinmac/sdk/usr/bin
 $?ABCLIBOPTS=-config CONFIG::asdocs=false -config CONFIG::actual=true
 $?LIBHELPEROPTFLAGS=-O3
@@ -53,7 +70,9 @@ ifneq (,$(findstring cygwin,$(PLATFORM)))
 	$?BUILD=$(WIN_BUILD)
 	$?PLATFORM_NAME=win
 	$?HOST_TRIPLE=i686-pc-cygwin
-else
+endif
+
+ifneq (,$(findstring darwin,$(PLATFORM)))
 	$?EXEEXT=
 	$?SOEXT=.dylib
 	$?SDLFLAGS=--build=i686-apple-darwin9
@@ -62,6 +81,19 @@ else
 	$?SDKEXT=.dmg
 	$?BUILD=$(MAC_BUILD)
 	$?PLATFORM_NAME=mac
+	$?HOST_TRIPLE=x86_64-apple-darwin10
+	export PATH:=$(BUILD)/ccachebin:$(PATH)
+endif
+
+ifneq (,$(findstring linux,$(PLATFORM)))
+	$?EXEEXT=
+	$?SOEXT=.dylib
+	$?SDLFLAGS=--build=i686-apple-darwin9
+	$?TAMARIN_CONFIG_FLAGS=
+	$?TAMARINLDFLAGS=" -m32 -arch=i686"
+	$?SDKEXT=.dmg
+	$?BUILD=$(LINUX_BUILD)
+	$?PLATFORM_NAME=linux
 	$?HOST_TRIPLE=x86_64-apple-darwin10
 	export PATH:=$(BUILD)/ccachebin:$(PATH)
 endif
@@ -120,15 +152,15 @@ all:
 	@echo "~~~ Crossbridge ~~~"
 	@mkdir -p $(BUILD)/logs
 	@echo "-  base"
-	@$(MAKE) base &> $(BUILD)/logs/base.txt
+	@$(MAKE) base > $(BUILD)/logs/base.txt 2>&1
 	@echo "-  make"
-	@$(MAKE) make &> $(BUILD)/logs/make.txt
+	@$(MAKE) make > $(BUILD)/logs/make.txt 2>&1
 	@$(SDK)/usr/bin/make -s all_with_local_make
 
 all_with_local_make:
 	@for target in $(BUILDORDER) ; do \
 		echo "-  $$target" ; \
-		$(MAKE) $$target &> $(BUILD)/logs/$$target.txt ; \
+		$(MAKE) $$target > $(BUILD)/logs/$$target.txt 2>&1; \
 		mret=$$? ; \
 		logs="$$logs $(BUILD)/logs/$$target.txt" ; \
 		grep -q "Resource temporarily unavailable" $(BUILD)/logs/$$target.txt ; \
@@ -136,7 +168,7 @@ all_with_local_make:
 		rcount=1 ; \
 		while [ $$gret == 0 ] && [ $$rcount -lt 6 ] ; do \
 			echo "-  $$target (retry $$rcount)" ; \
-			$(MAKE) $$target &> $(BUILD)/logs/$$target.txt ; \
+			$(MAKE) $$target > $(BUILD)/logs/$$target.txt 2>&1; \
 			mret=$$? ; \
 			grep -q "Resource temporarily unavailable" $(BUILD)/logs/$$target.txt ; \
 			gret=$$? ; \
