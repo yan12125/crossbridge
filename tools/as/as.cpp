@@ -31,6 +31,10 @@
 #include <string>
 #include <vector>
 
+#if defined(__linux__)
+  #include <unistd.h>
+#endif
+
 #define CHUNK (256 * 1024)
 
 extern "C" char *SetFlasccSDKLocation(const char *suffix);

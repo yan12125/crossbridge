@@ -89,6 +89,9 @@ char* javapath(const char *path)
 }
 #endif
 
+#if defined(__linux__)
+  #include <unistd.h>
+#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -109,10 +112,28 @@ void GetAppPath(char *dest, unsigned int *sz) {
       winpath = nativepath(dest);
       strncpy(dest, winpath, strlen(winpath));
     }
-  #else
+  #elif defined(__APPLE__)
     char macpath[PATH_MAX];
     if(_NSGetExecutablePath(&macpath[0], sz) != -1)
       realpath(&macpath[0], dest);
+  #else
+    char linuxpath[PATH_MAX];
+    ssize_t len = readlink("/proc/self/exe", linuxpath, sizeof(linuxpath));
+    strncpy(dest, linuxpath, strlen(linuxpath));
+    /*
+    char exe_path[MAXPATHLEN];
+    StringRef aPath("/proc/self/exe");
+    if (sys::fs::exists(aPath)) {
+        // /proc is not always mounted under Linux (chroot for example).
+        ssize_t len = readlink(aPath.str().c_str(), exe_path, sizeof(exe_path));
+        if (len >= 0)
+            return StringRef(exe_path, len);
+    } else {
+        // Fall back to the classical detection.
+        if (getprogpath(exe_path, argv0) != NULL)
+            return exe_path;
+    }
+    */
   #endif
   *sz = strlen(dest);
 }
