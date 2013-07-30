@@ -37,7 +37,7 @@ else
 	$?RAWPLAT=linux
 	$?THREADS=1
 	$?nativepath=$(1)
-	$?BUILD_TRIPLE=x86_64-apple-darwin10
+	$?BUILD_TRIPLE=x86_64-unknown-linux
 	$?CC=gcc
 	$?CXX=g++
 	$?NATIVE_AR=ar
@@ -88,13 +88,13 @@ endif
 ifneq (,$(findstring linux,$(PLATFORM)))
 	$?EXEEXT=
 	$?SOEXT=.dylib
-	$?SDLFLAGS=--build=i686-apple-darwin9
+	$?SDLFLAGS=--build=i686-unknown-linux
 	$?TAMARIN_CONFIG_FLAGS=
 	$?TAMARINLDFLAGS=" -m32 -arch=i686"
 	$?SDKEXT=.dmg
 	$?BUILD=$(LINUX_BUILD)
 	$?PLATFORM_NAME=linux
-	$?HOST_TRIPLE=x86_64-apple-darwin10
+	$?HOST_TRIPLE=x86_64-unknown-linux
 	export PATH:=$(BUILD)/ccachebin:$(PATH)
 endif
 
