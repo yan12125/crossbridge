@@ -59,7 +59,7 @@ add_subdirectory(llvm-bcanalyzer)
 option(LLVM_BUILD_CLANG "Compile Clang" ON)
 if( EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/clang/CMakeLists.txt )
   if (LLVM_BUILD_CLANG)
-    add_subdirectory( ${CMAKE_CURRENT_SOURCE_DIR}/clang )
+    #add_subdirectory( ${CMAKE_CURRENT_SOURCE_DIR}/clang )
   endif (LLVM_BUILD_CLANG)
 endif( EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/clang/CMakeLists.txt )
 

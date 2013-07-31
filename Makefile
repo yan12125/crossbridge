@@ -87,7 +87,7 @@ endif
 
 ifneq (,$(findstring linux,$(PLATFORM)))
 	$?EXEEXT=
-	$?SOEXT=.dylib
+	$?SOEXT=.so
 	$?SDLFLAGS=--build=i686-unknown-linux
 	$?TAMARIN_CONFIG_FLAGS=
 	$?TAMARINLDFLAGS=" -m32 -arch=i686"
