@@ -33,6 +33,8 @@ add_clang_executable(clang
   cc1as_main.cpp
   )
 
+target_link_libraries(clang uuid)
+
 set_target_properties(clang PROPERTIES VERSION ${CLANG_EXECUTABLE_VERSION})
 
 if(UNIX)
