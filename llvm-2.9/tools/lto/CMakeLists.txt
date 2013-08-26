@@ -6,4 +6,4 @@ add_llvm_library(LTO
   lto.cpp
 )
 
-target_link_libraries(LTO LLVMMC)
+target_link_libraries(LTO LLVMMC LLVMSupport)
