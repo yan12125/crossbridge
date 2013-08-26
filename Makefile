@@ -35,9 +35,9 @@ ifneq (,$(findstring Darwin,$(UNAME)))
 else
 	$?PLATFORM="linux"
 	$?RAWPLAT=linux
-	$?THREADS=1
+	$?THREADS=2
 	$?nativepath=$(1)
-	$?BUILD_TRIPLE=x86_64-unknown-linux
+	$?BUILD_TRIPLE=x86_64-unknown-linux-gnu
 	$?CC=gcc
 	$?CXX=g++
 	$?NATIVE_AR=ar

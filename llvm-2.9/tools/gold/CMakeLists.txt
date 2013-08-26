@@ -20,7 +20,7 @@ if(MINGW)
   llvm_target_link_libraries(LLVMgold -lrpcrt4)
 endif()
 
-if(CYGWIN OR LLVM_CYGWINMAC)
+#if(CYGWIN OR LLVM_CYGWINMAC)
   llvm_target_link_libraries(LLVMgold -luuid)
-endif()
+#endif()
 
