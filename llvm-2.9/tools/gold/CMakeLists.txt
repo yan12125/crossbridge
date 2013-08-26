@@ -5,6 +5,7 @@ set(EXPORTED_SYMBOL_FILE $(PROJ_SRC_DIR)/gold.exports)
 set( LLVM_LINK_COMPONENTS
   support
   LTO
+  LLVMMC
 )
 
 include_directories(${BINUTILS_INCDIR})
@@ -22,5 +23,6 @@ endif()
 
 #if(CYGWIN OR LLVM_CYGWINMAC)
   llvm_target_link_libraries(LLVMgold -luuid)
+  llvm_target_link_libraries(LLVMgold -lLLVMMC)
 #endif()
 
