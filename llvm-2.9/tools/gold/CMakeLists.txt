@@ -3,9 +3,8 @@ set(MODULE TRUE)
 set(EXPORTED_SYMBOL_FILE $(PROJ_SRC_DIR)/gold.exports)
 
 set( LLVM_LINK_COMPONENTS
-  support
+  #support
   LTO
-  LLVMMC
 )
 
 include_directories(${BINUTILS_INCDIR})
