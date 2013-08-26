@@ -5,3 +5,5 @@ add_llvm_library(LTO
   LTOCodeGenerator.cpp
   lto.cpp
 )
+
+target_link_libraries(LTO LLVMMC)
