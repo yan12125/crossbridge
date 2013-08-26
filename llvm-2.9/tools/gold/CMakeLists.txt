@@ -15,13 +15,18 @@ add_llvm_loadable_module(LLVMgold
 )
 
 
-llvm_target_link_libraries(LLVMgold
+target_link_libraries(LLVMgold
 LLVMAnalysis LLVMArchive LLVMAsmParser LLVMAsmPrinter LLVMAVM2ShimCodeGen LLVMAVM2ShimInfo LLVMBitReader LLVMBitWriter LLVMCodeGen LLVMCore LLVMExecutionEngine LLVMInstCombine LLVMInstrumentation LLVMInterpreter LLVMipa LLVMipo LLVMJIT LLVMLinker LLVMMC LLVMMCDisassembler LLVMMCJIT LLVMCBackend LLVMCBackendInfo LLVMMCParser LLVMObject LLVMScalarOpts LLVMSelectionDAG LLVMSupport LLVMTarget LLVMTransformUtils LLVMX86AsmParser LLVMX86AsmPrinter LLVMX86CodeGen LLVMX86Disassembler LLVMX86Info LLVMX86Utils LTO)
 if(MINGW)
-  llvm_target_link_libraries(LLVMgold -lrpcrt4)
+  target_link_libraries(LLVMgold -lrpcrt4)
 endif()
 
 #if(CYGWIN OR LLVM_CYGWINMAC)
-  llvm_target_link_libraries(LLVMgold -luuid)
+  target_link_libraries(LLVMgold -luuid)
 #endif()
+
+#LTO LLVMAnalysis LLVMArchive LLVMAsmParser LLVMAsmPrinter LLVMBitReader LLVMBitWriter LLVMCodeGen LLVMCore LLVMExecutionEngine LLVMInstCombine LLVMInstrumentation LLVMInterpreter LLVMipa LLVMipo LLVMJIT LLVMLinker LLVMMC LLVMMCDisassembler LLVMMCJIT LLVMObject LLVMScalarOpts LLVMSelectionDAG LLVMSupport LLVMTarget LLVMTransformUtils LLVMX86AsmParser LLVMX86AsmPrinter LLVMX86CodeGen LLVMX86Disassembler LLVMX86Info LLVMX86Utils LLVMAVM2AsmParser LLVMAVM2Info LLVMAVM2CodeGen)
+
+
+
 
