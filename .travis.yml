@@ -1,0 +1,4 @@
+language: objective-c
+compiler:
+    - gcc
+script: make
