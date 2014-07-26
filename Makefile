@@ -214,7 +214,7 @@ abclibs_asdocs:
 				-main-title "Crossbridge API Reference" \
 				-window-title "Crossbridge API Reference" \
 				-output apidocs &> $(BUILD)/logs/asdoc.txt
-	#mv $(BUILDROOT)/apidocs/tempdita $(BUILDROOT)/
+	mv $(BUILDROOT)/apidocs/tempdita $(BUILDROOT)/
 
 CROSS=PATH="$(BUILD)/ccachebin:$(CYGWINMAC):$(PATH):$(SDK)/usr/bin" $(MAKE) SDK=$(WIN_BUILD)/sdkoverlay PLATFORM=cygwin LLVMINSTALLPREFIX=$(WIN_BUILD) NATIVE_AR=$(CYGTRIPLE)-ar CC=$(CYGTRIPLE)-gcc CXX=$(CYGTRIPLE)-g++ RANLIB=$(CYGTRIPLE)-ranlib
 
@@ -415,7 +415,7 @@ sdkcleanup:
 finalcleanup:
 	rm -f $(SDK)/usr/lib/*.la
 	rm -rf $(SDK)/usr/share/aclocal $(SDK)/usr/share/doc $(SDK)/usr/share/man $(SDK)/usr/share/info
-	@$(LN) ../../share $(SDK)/usr/platform/darwin/share
+	@$(LN) ../../share $(SDK)/usr/platform/current/share
 	$(RSYNC) $(SRCROOT)/tools/swf-info.py $(SDK)/usr/bin/
 	$(RSYNC) $(SRCROOT)/tools/projector-dis.py $(SDK)/usr/bin/
 	$(RSYNC) $(SRCROOT)/tools/swfdink.py $(SDK)/usr/bin/
