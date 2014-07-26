@@ -293,7 +293,6 @@ int	flock(int, int);
 __END_DECLS
 #endif
 
-#if __linux__
 /*
  * Copied from <freebsd-source-tree>/sys/i386/linux/linux.h
  * FreeBSD source tree can be found in https://github.com/freebsd/freebsd
@@ -374,6 +373,5 @@ __END_DECLS
 #define F_RDLCK       0
 #define F_WRLCK       1
 #define F_UNLCK       2
-#endif /* __linux__ */
 
 #endif /* !_SYS_FCNTL_H_ */
