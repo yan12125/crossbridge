@@ -98,11 +98,11 @@ def _setGCCVersionedFlags(FLAGS, MAJOR_VERSION, MINOR_VERSION, current_cpu):
         elif (MAJOR_VERSION == 4 and MINOR_VERSION <= 2): # 4.0 - 4.2
             # Bugzilla 654996: -Werror for gcc prior to 4.3 can _usually_ be
             # turned on; see core/manifest.mk for Interpreter.cpp workaround.
-            FLAGS += "-Wstrict-aliasing=0 -Werror "
+            FLAGS += "-Wstrict-aliasing=0 "
         elif (MAJOR_VERSION == 4 and MINOR_VERSION == 4): # 4.4
-            FLAGS += "-Werror -Wempty-body -Wno-logical-op -Wmissing-field-initializers -Wstrict-aliasing=0 -Wno-array-bounds -Wno-clobbered -Wstrict-overflow=0 -funit-at-a-time  "
+            FLAGS += "-Wempty-body -Wno-logical-op -Wmissing-field-initializers -Wstrict-aliasing=0 -Wno-array-bounds -Wno-clobbered -Wstrict-overflow=0 -funit-at-a-time  "
         else: # gcc 4.5 or later
-            FLAGS += "-Werror -Wempty-body -Wno-logical-op -Wmissing-field-initializers -Wstrict-aliasing=3 -Wno-array-bounds -Wno-clobbered -Wstrict-overflow=0 -funit-at-a-time  "
+            FLAGS += "-Wempty-body -Wno-logical-op -Wmissing-field-initializers -Wstrict-aliasing=3 -Wno-array-bounds -Wno-clobbered -Wstrict-overflow=0 -funit-at-a-time  "
             if (MAJOR_VERSION == 4 and MINOR_VERSION == 6): # 4.6
                 FLAGS += "-Wno-psabi -Wno-unused-variable -Wno-unused-but-set-variable "
 
@@ -142,9 +142,9 @@ if buildAot:
 APP_CPPFLAGS = "-DAVMSHELL_BUILD "
 APP_CXXFLAGS = ""
 APP_CFLAGS = ""
-OPT_CXXFLAGS = "-O3 "
+OPT_CXXFLAGS = "-O0 "
 OPT_CPPFLAGS = ""
-DEBUG_CPPFLAGS = "-DDEBUG -D_DEBUG "
+DEBUG_CPPFLAGS = "-DDEBUG -D_DEBUG -O0 -g "
 DEBUG_CXXFLAGS = ""
 DEBUG_CFLAGS = ""
 DEBUG_LDFLAGS = ""

@@ -119,6 +119,7 @@ void GetAppPath(char *dest, unsigned int *sz) {
   #else
     char linuxpath[PATH_MAX];
     ssize_t len = readlink("/proc/self/exe", linuxpath, sizeof(linuxpath));
+    linuxpath[len] = '\0'; /* readlink() does not append it */
     strncpy(dest, linuxpath, strlen(linuxpath));
     /*
     char exe_path[MAXPATHLEN];

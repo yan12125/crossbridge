@@ -77,7 +77,7 @@ ifneq (,$(findstring darwin,$(PLATFORM)))
 	$?SOEXT=.dylib
 	$?SDLFLAGS=--build=i686-apple-darwin9
 	$?TAMARIN_CONFIG_FLAGS=
-	$?TAMARINLDFLAGS=" -m32 -arch=i686"
+	$?TAMARINLDFLAGS=" -m32 -march=i686"
 	$?SDKEXT=.dmg
 	$?BUILD=$(MAC_BUILD)
 	$?PLATFORM_NAME=mac
@@ -90,7 +90,7 @@ ifneq (,$(findstring linux,$(PLATFORM)))
 	$?SOEXT=.so
 	$?SDLFLAGS=--build=i686-unknown-linux
 	$?TAMARIN_CONFIG_FLAGS=
-	$?TAMARINLDFLAGS=" -m32 -arch=i686"
+	$?TAMARINLDFLAGS=" -m32 -march=i686 -lrt"
 	$?SDKEXT=.dmg
 	$?BUILD=$(LINUX_BUILD)
 	$?PLATFORM_NAME=linux
@@ -1050,7 +1050,7 @@ libtool:
 	cd $(BUILD)/libtool && $(MAKE) -j$(THREADS) && $(MAKE) install-exec
 
 SWIG_LDFLAGS=-L$(BUILD)/llvm-debug/lib
-SWIG_LIBS=-lLLVMAVM2ShimInfo -lLLVMAVM2ShimCodeGen -lclangFrontend -lclangCodeGen -lclangDriver -lclangParse -lclangSema -lclangAnalysis -lclangLex -lclangAST -lclangBasic -lLLVMSelectionDAG -lLLVMCodeGen -lLLVMTarget -lLLVMMC -lLLVMScalarOpts -lLLVMTransformUtils -lLLVMAnalysis -lclangSerialization -lLLVMCore -lLLVMSupport 
+SWIG_LIBS=-lLLVMAVM2ShimInfo -lLLVMAVM2ShimCodeGen -lclangFrontend -lclangCodeGen -lclangDriver -lclangParse -lclangSema -lclangAnalysis -lclangLex -lclangAST -lclangBasic -lLLVMSelectionDAG -lLLVMCodeGen -lLLVMTarget -lLLVMMC -lLLVMScalarOpts -lLLVMTransformUtils -lLLVMAnalysis -lclangSerialization -lLLVMCore -lLLVMSupport -pthread
 SWIG_CXXFLAGS=-I$(SRCROOT)/avm2_env/misc/ -I$(SRCROOT)/llvm-2.9/include -I$(BUILD)/llvm-debug/include -I$(SRCROOT)/llvm-2.9/tools/clang/include -I$(BUILD)/llvm-debug/tools/clang/include -I$(SRCROOT)/llvm-2.9/tools/clang/lib -D__STDC_LIMIT_MACROS -D__STDC_CONSTANT_MACROS -fno-rtti -g -Wno-long-long
 SWIG_DIRS_TO_DELETE=allegrocl chicken clisp csharp d gcj go guile java lua modula3 mzscheme ocaml octave perl5 php pike python r ruby tcl
 

@@ -58,6 +58,7 @@ static char *rcsid =
 %}
 
 %option yylineno
+%option nounput
 
 BLANK		[ \t]
 CR		\n

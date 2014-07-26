@@ -18,6 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
 #include <getopt.h>
@@ -433,7 +434,7 @@ gen_httpvfs(int readonly)
             perror(ent->realpath);
             return 1;
         }
-        fprintf(manifest, "[\"%s\", %Ld, ", ent->escaped_vfspath, stats.st_size);
+        fprintf(manifest, "[\"%s\", %Ld, ", ent->escaped_vfspath, (long long)stats.st_size);
 
         while (1) {
             size_t bytes_in = fread(in_buf, 1, HTTP_MAX_CHUNK_SIZE, infile);
